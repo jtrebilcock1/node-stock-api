@@ -1,3 +1,40 @@
-<h1>USING HANDLEBARS</h1>
+<div class="jumbotron">
+    <h1 class="display-4"><strong>{{ stock.companyName}} ({{stock.symbol}})</strong></h1>
+    <p class="lead">
+    {{!-- <h1>{{ stock.companyName }} ({{stock.symbol}})</h1> --}}
+    <br>
+
+    <strong>Latest Price: </strong>${{ stock.latestPrice }}<br>
+    <strong>Previous Close: </strong>${{ stock.previousClose }}<br>
+    <strong>Percent Change: </strong>{{ stock.changePercent }}%<br>
+    <strong>Market Cap: </strong>${{ stock.marketCap }}<br>
+    <strong>YTD Change: </strong>{{ stock.ytdChange }}%<br>
+    <strong>52 Week High: </strong>${{ stock.week52High }}<br>
+    <strong>52 Week Low: </strong>${{ stock.week52Low }}<br>
+
+
+    </p>
+    <hr class="my-4">
+    <p>blah blah some useful text.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+
+
 {{!-- template tag from handlebars --}}
-<p>{{ stuff }} </p>
+{{!-- <p>{{ stock }} </p> --}}
+
+{{!-- <strong> </strong>{{ stock. }}<br>
+<strong> </strong>{{ stock. }}<br> --}}
+
+
+
+
+
+
+
+{{!--
+{{#each stock}}
+{{@key}} | {{this}}<br>
+{{/each}} --}}
