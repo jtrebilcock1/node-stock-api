@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 function api_call(finishedAPI, ticker) {
     request(`https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=pk_66121777c4424040ac51467797e6e9ce`, { json: true }, (err, res, body) => {
-        if (err) { finishedAPI("idk"); }
+        if (err) { finishedAPI("notAStock"); }
 
         if (res.statusCode == 404) {
             console.log(res.statusCode);
