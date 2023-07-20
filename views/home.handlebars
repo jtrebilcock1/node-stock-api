@@ -1,43 +1,42 @@
 {{posted_stuff}}<br>
 <title>Stock Search</title>
 
+{{#if stock.companyName}}
 <div class="jumbotron">
+
+
     <h1 class="display-4"><strong>{{ stock.companyName}} ({{stock.symbol}})</strong></h1>
     <p class="lead">
-    {{!-- <h1>{{ stock.companyName }} ({{stock.symbol}})</h1> --}}
-    <br>
+        <br>
 
-    <strong>Latest Price: </strong>${{ stock.latestPrice }}<br>
-    <strong>Previous Close: </strong>${{ stock.previousClose }}<br>
-    <strong>Percent Change: </strong>{{ stock.changePercent }}%<br>
-    <strong>Market Cap: </strong>${{ stock.marketCap }}<br>
-    <strong>YTD Change: </strong>{{ stock.ytdChange }}%<br>
-    <strong>52 Week High: </strong>${{ stock.week52High }}<br>
-    <strong>52 Week Low: </strong>${{ stock.week52Low }}<br>
+        <strong>Latest Price: </strong>${{ stock.latestPrice }}<br>
+        <strong>Previous Close: </strong>${{ stock.previousClose }}<br>
+        <strong>Percent Change: </strong>{{ stock.changePercent }}%<br>
+        <strong>Market Cap: </strong>${{ stock.marketCap }}<br>
+        <strong>YTD Change: </strong>{{ stock.ytdChange }}%<br>
+        <strong>52 Week High: </strong>${{ stock.week52High }}<br>
+        <strong>52 Week Low: </strong>${{ stock.week52Low }}<br>
 
-
-    </p>
-    <hr class="my-4">
-    <p>blah blah some useful text.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
 </div>
 
+{{!-- if user wants more info then let them display it with a button --}}
+<p>
+    <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        More Info
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        {{#each stock}}
+        {{@key}} | {{this}}<br>
+        {{/each}}
+    </div>
+</div>
 
-{{!-- template tag from handlebars --}}
-{{!-- <p>{{ stock }} </p> --}}
-
-{{!-- <strong> </strong>{{ stock. }}<br>
-<strong> </strong>{{ stock. }}<br> --}}
-
-
-
-
-
-
-
-{{!--
-{{#each stock}}
-{{@key}} | {{this}}<br>
-{{/each}} --}}
+{{!-- if the stock symbol searched doesnt exist then display this warning--}}
+{{else}}
+<div class="alert alert-danger" role="alert">
+    <h1>Stock Symbol Not Recognized, Try Again</h1>
+</div>
+{{/if}}

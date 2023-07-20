@@ -1,0 +1,1 @@
+dir to hold static html pages we dont need handlebars-express for and will just use express. 
