@@ -19,8 +19,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //api
 //pk_66121777c4424040ac51467797e6e9ce
-function api_call(finishedAPI) {
-    request('https://cloud.iexapis.com/stable/stock/fb/quote?token=pk_66121777c4424040ac51467797e6e9ce', { json: true }, (err, res, body) => {
+function api_call(finishedAPI, ticker) {
+    request('https://cloud.iexapis.com/stable/stock/' + ticker +'/quote?token=pk_66121777c4424040ac51467797e6e9ce', { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         //console.log(body);
         if (res.statusCode === 200) {
@@ -31,15 +31,12 @@ function api_call(finishedAPI) {
 };
 
 
-//Set handlebars
-
-app.engine('handlebars', exphbs.engine());
+//Set handlebars. app methods come from http module
+app.engine('handlebars', exphbs.engine()); 
 app.set("views", "./views");
 app.set('view engine', 'handlebars');
 
-
-const otherstuff = "Content for a homepage";
-
+//ROUTING
 // Set handlenbars index GET route
 app.get('/', function (req, res) {
     //api_call has a callback function
@@ -48,7 +45,7 @@ app.get('/', function (req, res) {
         res.render('home', {
             stock: doneAPI
         });
-    });
+    }, 'fb');
 
 });
 
@@ -57,20 +54,20 @@ app.post('/', function (req, res) {
     //api_call has a callback function
     api_call(function (doneAPI) {
         //body  of doneAPI. api_call will wait for this callback function to finish so the api doesnt return undefined
-        posted_stuff = req.body.stock_ticker;
+        //posted_stuff = req.body.stock_ticker;
         res.render('home', {
             stock: doneAPI,
-            posted_stuff: posted_stuff
+            //posted_stuff: posted_stuff
         });
-    });
+    },req.body.stock_ticker);
 
 });
 
 // Set handlenbars About routes
 app.get('/about.html', function (req, res) {
-    res.render('about');
+    res.render('about', {layout: 'main.handlebars'}); //if multiple layouts you could specify which one like this
 });
-
+//END ROUTING
 
 // Set a static folder
 app.use(express.static(path.join(__dirname, 'public')));
