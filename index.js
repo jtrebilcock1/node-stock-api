@@ -10,17 +10,11 @@ const PORT = process.env.PORT || 5000;
 
 
 //body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-
-
-
-
-
-//api
-//pk_66121777c4424040ac51467797e6e9ce
+//api call
 function api_call(finishedAPI, ticker) {
-    request('https://cloud.iexapis.com/stable/stock/' + ticker +'/quote?token=pk_66121777c4424040ac51467797e6e9ce', { json: true }, (err, res, body) => {
+    request(`https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=pk_66121777c4424040ac51467797e6e9ce`, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         //console.log(body);
         if (res.statusCode === 200) {
@@ -30,9 +24,8 @@ function api_call(finishedAPI, ticker) {
     });
 };
 
-
 //Set handlebars. app methods come from http module
-app.engine('handlebars', exphbs.engine()); 
+app.engine('handlebars', exphbs.engine());
 app.set("views", "./views");
 app.set('view engine', 'handlebars');
 
@@ -57,15 +50,13 @@ app.post('/', function (req, res) {
         //posted_stuff = req.body.stock_ticker;
         res.render('home', {
             stock: doneAPI,
-            //posted_stuff: posted_stuff
         });
-    },req.body.stock_ticker);
-
+    }, req.body.stock_ticker);
 });
 
 // Set handlenbars About routes
 app.get('/about.html', function (req, res) {
-    res.render('about', {layout: 'main.handlebars'}); //if multiple layouts you could specify which one like this
+    res.render('about', { layout: 'main.handlebars' }); //if multiple layouts you could specify which one like this
 });
 //END ROUTING
 
