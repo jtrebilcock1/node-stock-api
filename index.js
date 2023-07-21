@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: false }));
 
 function api_call(finishedAPI, ticker) {
-    request(`https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=pk_66121777c4424040ac51467797e6e9ce`, { json: true }, (err, res, body) => {
+    //get your opwn api key here https://iexcloud.io/
+    const apikey = 'pk_66121777c4424040ac51467797e6e9ce';
+    request(`https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${apikey}`, { json: true }, (err, res, body) => {
         if (err) { finishedAPI("notAStock"); }
 
         if (res.statusCode == 404) {
